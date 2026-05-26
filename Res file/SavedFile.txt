@@ -1,0 +1,31 @@
+object Form1: TForm1
+  Left = 423
+  Height = 240
+  Top = 124
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 320
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  object Button1: TButton
+    Left = 191
+    Height = 53
+    Top = 16
+    Width = 123
+    Caption = 'Save ICO'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 191
+    Height = 64
+    Top = 90
+    Width = 123
+    Caption = 'Save and Run EXE'
+    TabOrder = 1
+    OnClick = Button2Click
+  end
+end
+Adding new line after loading

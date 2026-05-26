@@ -1,0 +1,82 @@
+object fMain: TfMain
+  Left = 645
+  Height = 183
+  Top = 338
+  Width = 409
+  Anchors = [akTop]
+  Caption = 'Write easter egg to main application'
+  ClientHeight = 183
+  ClientWidth = 409
+  LCLVersion = '2.1.0.0'
+  object lbTargetExe: TLabel
+    Left = 24
+    Height = 15
+    Top = 10
+    Width = 92
+    Caption = 'Main application:'
+    ParentColor = False
+  end
+  object edTargetExe: TEdit
+    Left = 24
+    Height = 23
+    Top = 26
+    Width = 344
+    TabOrder = 0
+  end
+  object bTargetExe: TButton
+    AnchorSideTop.Control = edTargetExe
+    AnchorSideBottom.Control = edTargetExe
+    AnchorSideBottom.Side = asrBottom
+    Left = 371
+    Height = 23
+    Top = 26
+    Width = 28
+    Anchors = [akLeft, akBottom]
+    Caption = '...'
+    OnClick = bTargetExeClick
+    TabOrder = 1
+  end
+  object lbEasterEgg: TLabel
+    Left = 24
+    Height = 15
+    Top = 72
+    Width = 57
+    Caption = 'Easter egg:'
+    ParentColor = False
+  end
+  object edEasterEgg: TEdit
+    Left = 24
+    Height = 23
+    Top = 88
+    Width = 344
+    TabOrder = 2
+  end
+  object bEasterEgg: TButton
+    Tag = 1
+    AnchorSideTop.Control = edEasterEgg
+    AnchorSideBottom.Control = edEasterEgg
+    AnchorSideBottom.Side = asrBottom
+    Left = 372
+    Height = 23
+    Top = 88
+    Width = 28
+    Anchors = [akTop, akLeft, akBottom]
+    Caption = '...'
+    OnClick = bTargetExeClick
+    TabOrder = 3
+  end
+  object bWrite: TButton
+    Left = 152
+    Height = 25
+    Top = 136
+    Width = 96
+    Caption = 'Write'
+    OnClick = bWriteClick
+    TabOrder = 4
+  end
+  object OD: TOpenDialog
+    Filter = '*.exe|*.exe'
+    left = 72
+    top = 120
+  end
+end

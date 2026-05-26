@@ -1,0 +1,28 @@
+object fMain: TfMain
+  Left = 598
+  Height = 261
+  Top = 219
+  Width = 377
+  Caption = 'Easter egg'
+  ClientHeight = 261
+  ClientWidth = 377
+  OnPaint = FormPaint
+  Position = poScreenCenter
+  LCLVersion = '2.1.0.0'
+  object bOk: TButton
+    Left = 160
+    Height = 25
+    Top = 224
+    Width = 75
+    Anchors = [akLeft, akBottom]
+    Caption = 'Ok'
+    OnClick = bOkClick
+    TabOrder = 0
+  end
+  object tmColor: TTimer
+    Interval = 400
+    OnTimer = tmColorTimer
+    left = 28
+    top = 18
+  end
+end

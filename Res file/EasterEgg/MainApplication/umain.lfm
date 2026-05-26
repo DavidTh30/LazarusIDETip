@@ -1,0 +1,22 @@
+object fMain: TfMain
+  Left = 508
+  Height = 240
+  Top = 200
+  Width = 320
+  Caption = 'Main application'
+  ClientHeight = 240
+  ClientWidth = 320
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
+  LCLVersion = '2.1.0.0'
+  object bShow: TButton
+    Left = 64
+    Height = 25
+    Top = 176
+    Width = 179
+    Caption = 'Show easter egg'
+    OnClick = bShowClick
+    TabOrder = 0
+  end
+end

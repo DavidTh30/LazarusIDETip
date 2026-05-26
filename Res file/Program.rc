@@ -1,0 +1,2 @@
+Program32 RCDATA ..\Program\Win32\Release\Program.exe
+Program64 RCDATA ..\Program\Win64\Release\Program.exe
