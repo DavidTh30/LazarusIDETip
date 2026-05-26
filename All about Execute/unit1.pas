@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Windows, ShellApi, Process;
+  Windows, ShellApi, Process, LCLIntf;
 
 type
 
@@ -19,12 +19,16 @@ type
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    Button7: TButton;
+    Button8: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
   private
 
   public
@@ -187,6 +191,24 @@ begin
 
   // Open a webpage URL in the default browser using 'start' command (via a brief hidden cmd window) :
   if ShellExecute(0,nil, PChar('cmd'),PChar('/c start www.lazarus.freepascal.org/'),nil,0) =0 then;
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+  OpenDocument('project1.ico');
+  OpenURL('www.lazarus.freepascal.org/');
+end;
+
+procedure TForm1.Button8Click(Sender: TObject);
+var
+  s : ansistring;
+
+begin
+
+  {Seem like not work}
+if RunCommand('dir',['/w','/h'],s) then showmessage(s);
+
+
 end;
 
 end.

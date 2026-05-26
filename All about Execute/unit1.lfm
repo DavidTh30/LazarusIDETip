@@ -58,8 +58,26 @@ object Form1: TForm1
     Height = 34
     Top = 8
     Width = 116
-    Caption = 'ShellExecute'
+    Caption = 'ALL ShellExecute'
     TabOrder = 5
     OnClick = Button6Click
+  end
+  object Button7: TButton
+    Left = 160
+    Height = 34
+    Top = 48
+    Width = 116
+    Caption = 'Open File and URL'
+    TabOrder = 6
+    OnClick = Button7Click
+  end
+  object Button8: TButton
+    Left = 160
+    Height = 34
+    Top = 88
+    Width = 116
+    Caption = 'RunCommand'
+    TabOrder = 7
+    OnClick = Button8Click
   end
 end
