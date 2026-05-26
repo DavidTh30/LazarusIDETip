@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Math;
 
 type
 
@@ -18,6 +18,7 @@ type
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    Button7: TButton;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -25,6 +26,7 @@ type
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
   private
 
   public
@@ -32,7 +34,7 @@ type
   end;
 
   type
-  TIntArray = array of Integer;
+  TIntArray = array of Extended;
 
 var
   Form1: TForm1;
@@ -105,10 +107,18 @@ end;
 procedure TForm1.Button5Click(Sender: TObject);
 var
   slice1: TIntArray;
+  Pf_array:Pfloat;
 begin
+  if Length(MyStack)<=0 then begin Memo1.Append('Array MyStack: None'); exit; end;
+
   {Not work}
-  Move(MyStack, slice1, SizeOf(MyStack)+(SizeOf(MyStack)*(Length(MyStack)-1)));
-  Move(slice1, MyStack, SizeOf(slice1)+(SizeOf(slice1)*(Length(slice1)-1)));
+  Pf_array:=@MyStack[1];
+  Memo1.Append('SizeOf Pf_array: '+ SizeOf(Pf_array).ToString);
+  Move(MyStack, slice1, SizeOf(Pf_array));
+
+  //{Not work}
+  //Move(MyStack, slice1, SizeOf(MyStack)+(SizeOf(MyStack)*(Length(MyStack)-1)));
+  //Move(slice1, MyStack, SizeOf(slice1)+(SizeOf(slice1)*(Length(slice1)-1)));
 
   if Length(slice1)<=0 then begin Memo1.Append('Array slice1: None'); exit; end;
   Memo1.Append('slice1 Length: '+ Length(slice1).ToString);
@@ -127,10 +137,17 @@ begin
   Memo1.Append('MyStack Length: '+ Length(MyStack).ToString);
   Memo1.Append('SizeOf MyStack: '+ SizeOf(MyStack).ToString);
   if Length(MyStack)<=0 then begin Memo1.Append('Array MyStack: None'); exit; end;
-   Memo1.Append('MyStack Low: '+ Low(MyStack).ToString);
+  Memo1.Append('MyStack Low: '+ Low(MyStack).ToString);
   Memo1.Append('MyStack High: '+ High(MyStack).ToString);
   Memo1.Append('MyStack FirstArray: '+ MyStack[Low(MyStack)].ToString);
   Memo1.Append('MyStack LastArray: '+ MyStack[High(MyStack)].ToString);
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+  if Length(MyStack)<=0 then begin Memo1.Append('Array MyStack: None'); exit; end;
+  Memo1.Append('MyStack MinValue: '+ MinValue(MyStack).ToString);
+  Memo1.Append('MyStack MaxValue: '+ MaxValue(MyStack).ToString);
 end;
 
 end.
