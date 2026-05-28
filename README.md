@@ -15,6 +15,12 @@ Keyword:
 
 -If showing form
 
--inc to steam
+-inc to stream
 
 -Steam to image
+
+-Load record from file
+
+-Save record to file
+
+-Save record to file using stream
