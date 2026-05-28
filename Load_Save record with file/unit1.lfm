@@ -1,0 +1,47 @@
+object Form1: TForm1
+  Left = 641
+  Height = 240
+  Top = 416
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 320
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  object Button1: TButton
+    Left = 34
+    Height = 34
+    Top = 22
+    Width = 102
+    Caption = 'Save record'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 34
+    Height = 36
+    Top = 69
+    Width = 101
+    Caption = 'Load'
+    TabOrder = 1
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 144
+    Height = 36
+    Top = 22
+    Width = 90
+    Caption = 'Save by Stream'
+    TabOrder = 2
+    OnClick = Button3Click
+  end
+  object Button4: TButton
+    Left = 148
+    Height = 38
+    Top = 69
+    Width = 93
+    Caption = 'PascalScript'
+    TabOrder = 3
+    OnClick = Button4Click
+  end
+end
