@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, simpleipc, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls;
+  ExtCtrls, dbugmsg, dbugintf;
 
 type
 
@@ -14,10 +14,14 @@ type
 
   TForm1 = class(TForm)
     Button1: TButton;
+    Button2: TButton;
+    Edit1: TEdit;
     Memo1: TMemo;
     SimpleIPCServer1: TSimpleIPCServer;
     Timer1: TTimer;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Edit1EditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SimpleIPCServer1Message(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -56,6 +60,24 @@ begin
     Button1.Caption := 'Start server';
   end;
   Caption := Format('IPC server [ID: %s] - %s', [SimpleIPCServer1.ServerID, s]);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  //DebugServerID : string = ’fpcdebugserver’
+  dbugmsg.DebugMessageName(1);
+   SendDebug('Application started successfully.');
+   SendDebugFmt('User logged in with ID: %d', [1045]);
+
+end;
+
+procedure TForm1.Edit1EditingDone(Sender: TObject);
+begin
+  SimpleIPCServer1.Active := false;
+  SimpleIPCServer1.StopServer;
+  SimpleIPCServer1.ServerID:=Edit1.Text;
+  SimpleIPCServer1.StartServer;
+  SimpleIPCServer1.Active := true;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
