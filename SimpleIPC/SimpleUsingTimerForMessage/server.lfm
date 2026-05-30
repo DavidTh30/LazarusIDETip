@@ -1,0 +1,63 @@
+object Form1: TForm1
+  Left = 321
+  Height = 258
+  Top = 148
+  Width = 377
+  Caption = 'IPC server'
+  ClientHeight = 258
+  ClientWidth = 377
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  object Button1: TButton
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 8
+    Height = 23
+    Top = 8
+    Width = 84
+    AutoSize = True
+    BorderSpacing.Left = 8
+    BorderSpacing.Top = 8
+    Caption = 'Start server'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Memo1: TMemo
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 8
+    Height = 211
+    Top = 39
+    Width = 361
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 8
+    BorderSpacing.Top = 8
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 8
+    Lines.Strings = (
+      'Memo1'
+    )
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object SimpleIPCServer1: TSimpleIPCServer
+    Active = False
+    Global = True
+    OnMessage = SimpleIPCServer1Message
+    Threaded = False
+    Left = 128
+    Top = 96
+  end
+  object Timer1: TTimer
+    Interval = 500
+    OnTimer = Timer1Timer
+    Left = 128
+    Top = 160
+  end
+end

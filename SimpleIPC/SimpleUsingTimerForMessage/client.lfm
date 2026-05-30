@@ -1,0 +1,104 @@
+object Form1: TForm1
+  Left = 310
+  Height = 133
+  Top = 130
+  Width = 526
+  Caption = 'IPC client'
+  ClientHeight = 133
+  ClientWidth = 526
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  object Button1: TButton
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 16
+    Height = 23
+    Top = 16
+    Width = 66
+    AutoSize = True
+    BorderSpacing.Left = 16
+    BorderSpacing.Top = 16
+    Caption = 'Connect'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object EdMessage: TEdit
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = BtnSend
+    Left = 16
+    Height = 21
+    Top = 88
+    Width = 391
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 16
+    BorderSpacing.Top = 4
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 16
+    Constraints.MinWidth = 260
+    TabOrder = 1
+    Text = 'This is a test message.'
+  end
+  object Label1: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Bevel1
+    AnchorSideTop.Side = asrBottom
+    Left = 16
+    Height = 13
+    Top = 71
+    Width = 69
+    BorderSpacing.Left = 16
+    BorderSpacing.Top = 8
+    Caption = 'Message text:'
+    ParentColor = False
+  end
+  object BtnSend: TButton
+    AnchorSideTop.Control = EdMessage
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 415
+    Height = 23
+    Top = 87
+    Width = 95
+    Anchors = [akTop, akRight]
+    AutoSize = True
+    BorderSpacing.Right = 16
+    BorderSpacing.Bottom = 16
+    Caption = 'Send message'
+    Enabled = False
+    TabOrder = 2
+    OnClick = BtnSendClick
+  end
+  object Bevel1: TBevel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Cursor = 16
+    Left = 4
+    Height = 8
+    Top = 55
+    Width = 517
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 4
+    BorderSpacing.Top = 16
+    BorderSpacing.Right = 5
+    Shape = bsTopLine
+  end
+  object SimpleIPCClient1: TSimpleIPCClient
+    Active = False
+    ServerID = '123456789'
+    Left = 192
+    Top = 40
+  end
+  object Timer1: TTimer
+    Interval = 500
+    OnTimer = Timer1Timer
+    Left = 112
+    Top = 40
+  end
+end
