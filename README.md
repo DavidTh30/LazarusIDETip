@@ -19,7 +19,7 @@ Keyword:
 
    - Communication Via MQTT protocol https://github.com/ZiCog/mqtt-free-pascal
 
-   - Pascal-Actor-Model https://code.google.com/archive/p/pascal-actor-model/downloads
+   - Pascal-Actor-Model https://github.com/lguzzon-PASCAL/pascal-actor-model (https://code.google.com/archive/p/pascal-actor-model)
 
 -No blinking cursor
 
