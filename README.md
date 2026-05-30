@@ -5,6 +5,10 @@ EasterEgg got from https://forum.lazarus.freepascal.org/index.php?topic=44067.0
 
 Keyword:
 
+-SimpleIPC
+
+-Communication between application
+
 -No blinking cursor
 
 -Speed blinking cursor
