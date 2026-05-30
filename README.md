@@ -5,9 +5,15 @@ EasterEgg got from https://forum.lazarus.freepascal.org/index.php?topic=44067.0
 
 Keyword:
 
--SimpleIPC
+-SimpleIPC :
 
--Communication between application
+   - Communication between application
+     
+   - Auto Message
+     
+   - MessageQueued
+      
+   - PeekMessage
 
 -No blinking cursor
 
