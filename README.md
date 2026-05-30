@@ -17,6 +17,8 @@ Keyword:
 
    - Other SimpleIPC-lib (https://github.com/z505/SimpleIPC-lib)
 
+   - Communication Via MQTT protocol https://github.com/ZiCog/mqtt-free-pascal
+
 -No blinking cursor
 
 -Speed blinking cursor
