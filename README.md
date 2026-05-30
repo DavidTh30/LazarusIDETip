@@ -15,6 +15,8 @@ Keyword:
       
    - PeekMessage
 
+   - Other SimpleIPC-lib (https://github.com/z505/SimpleIPC-lib)
+
 -No blinking cursor
 
 -Speed blinking cursor
