@@ -15,11 +15,14 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Edit1: TEdit;
     Label2: TLabel;
     Memo1: TMemo;
     SimpleIPCServer1: TSimpleIPCServer;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure Edit1EditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SimpleIPCServer1Message(Sender: TObject);
@@ -84,6 +87,20 @@ begin
   Memo1.Append(SimpleIPCServer1.InstanceID);
   //if (SimpleIPCServer1.Message.StringMessage=nil) then exit;
   //Memo1.Append(SimpleIPCServer1.Message.StringMessage);
+end;
+
+procedure TForm1.Edit1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Edit1EditingDone(Sender: TObject);
+begin
+  SimpleIPCServer1.Active := false;
+  SimpleIPCServer1.StopServer;
+  SimpleIPCServer1.ServerID:=Edit1.Text;
+  SimpleIPCServer1.StartServer;
+  SimpleIPCServer1.Active := true;
 end;
 
 end.
