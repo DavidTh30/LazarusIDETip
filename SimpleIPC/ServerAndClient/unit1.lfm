@@ -1,0 +1,83 @@
+object Form1: TForm1
+  Left = 238
+  Height = 340
+  Top = 145
+  Width = 423
+  Caption = 'Form1'
+  ClientHeight = 340
+  ClientWidth = 423
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  object Memo1: TMemo
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 340
+    Top = 0
+    Width = 272
+    Anchors = [akTop, akLeft, akBottom]
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 296
+    Height = 25
+    Top = 48
+    Width = 115
+    Caption = 'Start server'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Edit1: TEdit
+    Left = 296
+    Height = 21
+    Top = 8
+    Width = 80
+    TabOrder = 2
+    Text = '5454847'
+  end
+  object Button2: TButton
+    Left = 296
+    Height = 25
+    Top = 80
+    Width = 115
+    Caption = 'Client connection'
+    TabOrder = 3
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 296
+    Height = 25
+    Top = 112
+    Width = 115
+    Caption = 'Send massage'
+    TabOrder = 4
+    OnClick = Button3Click
+  end
+  object Button4: TButton
+    Left = 296
+    Height = 25
+    Top = 144
+    Width = 115
+    Caption = 'PeekMessage'
+    TabOrder = 5
+    OnClick = Button4Click
+  end
+  object SimpleIPCServer1: TSimpleIPCServer
+    Active = False
+    ServerID = 'lazarus'
+    Global = True
+    OnMessage = SimpleIPCServer1Message
+    Threaded = False
+    Left = 345
+    Top = 21
+  end
+  object SimpleIPCClient1: TSimpleIPCClient
+    Active = False
+    Left = 245
+    Top = 26
+  end
+end

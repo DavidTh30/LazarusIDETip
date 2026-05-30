@@ -1,0 +1,69 @@
+object Form1: TForm1
+  Left = 461
+  Height = 232
+  Top = 140
+  Width = 339
+  Caption = 'Server'
+  ClientHeight = 232
+  ClientWidth = 339
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object Button1: TButton
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 210
+    Height = 32
+    Top = 58
+    Width = 129
+    Anchors = [akRight]
+    Caption = 'Active/Deactive'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Label2: TLabel
+    AnchorSideLeft.Control = Button1
+    AnchorSideBottom.Control = Button1
+    Left = 210
+    Height = 13
+    Top = 43
+    Width = 31
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 2
+    Caption = 'Label2'
+  end
+  object Memo1: TMemo
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Button1
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 232
+    Top = 0
+    Width = 207
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Right = 3
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 216
+    Height = 25
+    Top = 99
+    Width = 117
+    Caption = 'InstanceID'
+    TabOrder = 2
+    OnClick = Button2Click
+  end
+  object SimpleIPCServer1: TSimpleIPCServer
+    Active = False
+    Global = False
+    OnMessage = SimpleIPCServer1Message
+    OnMessageQueued = SimpleIPCServer1MessageQueued
+    Threaded = False
+    Left = 272
+    Top = 8
+  end
+end
