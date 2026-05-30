@@ -43,12 +43,14 @@ implementation
 { TForm1 }
 
 procedure TForm1.SimpleIPCServer1Message(Sender: TObject);
-var
-  s: string;
+////var
+////  s: string;
 begin
   Memo1.Append('SimpleIPCServer1Message:');
-  //s:=SimpleIPCServer1.StringMessage;
-  //Label1.Caption:=s;
+  //while IpcServer.PeekMessage(0, True) do
+  //  IpcServer.ReadMessage;
+  ////s:=SimpleIPCServer1.StringMessage;
+  ////Label1.Caption:=s;
 end;
 
 procedure TForm1.SimpleIPCServer1MessageQueued(Sender: TObject);

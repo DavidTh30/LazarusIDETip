@@ -2,10 +2,10 @@ object Form1: TForm1
   Left = 461
   Height = 232
   Top = 140
-  Width = 339
+  Width = 368
   Caption = 'Server'
   ClientHeight = 232
-  ClientWidth = 339
+  ClientWidth = 368
   Position = poWorkAreaCenter
   LCLVersion = '4.6.0.0'
   OnCreate = FormCreate
@@ -13,7 +13,7 @@ object Form1: TForm1
   object Button1: TButton
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 210
+    Left = 239
     Height = 32
     Top = 58
     Width = 129
@@ -25,7 +25,7 @@ object Form1: TForm1
   object Label2: TLabel
     AnchorSideLeft.Control = Button1
     AnchorSideBottom.Control = Button1
-    Left = 210
+    Left = 239
     Height = 13
     Top = 43
     Width = 31
@@ -42,24 +42,35 @@ object Form1: TForm1
     Left = 0
     Height = 232
     Top = 0
-    Width = 207
+    Width = 236
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Right = 3
+    Lines.Strings = (
+      '**Note**'
+      'while IpcServer.PeekMessage(0, True) do'
+      '  IpcServer.ReadMessage;  '
+    )
     ScrollBars = ssAutoBoth
     TabOrder = 1
   end
   object Button2: TButton
-    Left = 216
+    AnchorSideLeft.Control = Label2
+    AnchorSideTop.Control = Button1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Button1
+    AnchorSideRight.Side = asrBottom
+    Left = 239
     Height = 25
-    Top = 99
-    Width = 117
+    Top = 90
+    Width = 129
+    Anchors = [akTop, akLeft, akRight]
     Caption = 'InstanceID'
     TabOrder = 2
     OnClick = Button2Click
   end
   object Edit1: TEdit
     AnchorSideLeft.Control = Button1
-    Left = 210
+    Left = 239
     Height = 21
     Top = 8
     Width = 114
@@ -74,7 +85,7 @@ object Form1: TForm1
     OnMessage = SimpleIPCServer1Message
     OnMessageQueued = SimpleIPCServer1MessageQueued
     Threaded = False
-    Left = 256
-    Top = 144
+    Left = 248
+    Top = 184
   end
 end
