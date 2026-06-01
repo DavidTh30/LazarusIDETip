@@ -42,3 +42,5 @@ Keyword:
 -Save record to file using stream
 
 -Example DLL
+
+-Mouse with graphics
