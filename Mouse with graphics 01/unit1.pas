@@ -26,6 +26,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure BGRAVirtualScreen2Redraw(Sender: TObject; Bitmap: TBGRABitmap);
     procedure BGRAVirtualScreen3Redraw(Sender: TObject; Bitmap: TBGRABitmap);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
   private
 
@@ -40,6 +41,7 @@ var
   Virtual2OldX:integer;
   Virtual2OldY:integer;
   VirtualIndex:integer;
+  image_: TBGRABitmap;
 
 implementation
 
@@ -159,13 +161,13 @@ end;
 procedure TForm1.BGRAVirtualScreen2Redraw(Sender: TObject; Bitmap: TBGRABitmap);
 var
    Mask, BlurTemp: TBGRABitmap;
-   image: TBGRABitmap;
+   //image: TBGRABitmap;
    //Bitmap: TBGRABitmap;
    i:integer;
 begin
-  image := TBGRABitmap.Create('p.jpg');
+  //image := TBGRABitmap.Create('p.jpg');
   //Bitmap := TBGRABitmap.Create(clientwidth, clientheight, BGRAWhite);
-  BlurTemp := image.Resample(Bitmap.Width, Bitmap.Height) as TBGRABitmap;
+  BlurTemp := image_.Resample(Bitmap.Width, Bitmap.Height) as TBGRABitmap;
 
   Bitmap.PutImage(0, 0, BlurTemp, dmDrawWithTransparency);
   Mask := TBGRABitmap.Create(Bitmap.Width, Bitmap.Height, BGRABlack);
@@ -196,12 +198,12 @@ end;
 procedure TForm1.BGRAVirtualScreen3Redraw(Sender: TObject; Bitmap: TBGRABitmap);
 var
   Mask, BlurTemp: TBGRABitmap;
-  image: TBGRABitmap;
+  //image: TBGRABitmap;
   //Bitmap: TBGRABitmap;
 begin
-  image := TBGRABitmap.Create('p.jpg');
+  //image := TBGRABitmap.Create('p.jpg');
   //Bitmap := TBGRABitmap.Create(clientwidth, clientheight, BGRAWhite);
-  BlurTemp := image.Resample(Bitmap.Width, Bitmap.Height) as TBGRABitmap;
+  BlurTemp := image_.Resample(Bitmap.Width, Bitmap.Height) as TBGRABitmap;
 
   Bitmap.PutImage(0, 0, BlurTemp, dmDrawWithTransparency);
   Mask := TBGRABitmap.Create(Bitmap.Width, Bitmap.Height, BGRABlack);
@@ -217,6 +219,11 @@ begin
   BlurTemp.Free;
   //Bitmap.draw(Canvas, 0, 0);
   //Bitmap.Free;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  image_.Free;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -247,6 +254,8 @@ begin
   Points[7] := PointF(384,150);
   Points[8] := PointF(256,208);
   Points[9] := PointF(177,169);
+
+  image_ := TBGRABitmap.Create('p.jpg');
 end;
 
 end.

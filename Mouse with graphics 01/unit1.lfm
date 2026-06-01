@@ -8,6 +8,7 @@ object Form1: TForm1
   ClientWidth = 778
   Position = poWorkAreaCenter
   LCLVersion = '4.6.0.0'
+  OnClose = FormClose
   OnCreate = FormCreate
   object BGRAVirtualScreen1: TBGRAVirtualScreen
     Left = 496
