@@ -21,6 +21,10 @@ Keyword:
 
    - Pascal-Actor-Model https://github.com/lguzzon-PASCAL/pascal-actor-model (https://code.google.com/archive/p/pascal-actor-model)
 
+-Loop run OnIdle
+
+-GetTickCount 32bit
+
 -No blinking cursor
 
 -Speed blinking cursor
