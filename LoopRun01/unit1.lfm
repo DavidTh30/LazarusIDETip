@@ -1,0 +1,10 @@
+object Form1: TForm1
+  Left = 505
+  Height = 240
+  Top = 117
+  Width = 320
+  Caption = 'Form1'
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+end
