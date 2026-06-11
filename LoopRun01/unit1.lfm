@@ -1,10 +1,18 @@
 object Form1: TForm1
   Left = 505
-  Height = 240
+  Height = 279
   Top = 117
   Width = 320
   Caption = 'Form1'
+  ClientHeight = 279
+  ClientWidth = 320
   Position = poWorkAreaCenter
   LCLVersion = '4.6.0.0'
   OnCreate = FormCreate
+  object PaintBox1: TPaintBox
+    Left = 0
+    Height = 223
+    Top = 56
+    Width = 320
+  end
 end
