@@ -5,7 +5,7 @@ EasterEgg got from https://forum.lazarus.freepascal.org/index.php?topic=44067.0
 
 Keyword:
 
--SimpleIPC :
+- SimpleIPC :
 
    - Communication between application
      
@@ -21,30 +21,32 @@ Keyword:
 
    - Pascal-Actor-Model https://github.com/lguzzon-PASCAL/pascal-actor-model (https://code.google.com/archive/p/pascal-actor-model)
 
--Loop run OnIdle
+- Loop run OnIdle
 
--GetTickCount 32bit
+- GetTickCount 32bit / 64bit
 
--No blinking cursor
+- Repaint, Clear before repaint buffer
 
--Speed blinking cursor
+- No blinking cursor
 
--Hide blinking cursor
+- Speed blinking cursor
 
--Show blinking cursor
+- Hide blinking cursor
 
--If showing form
+- Show blinking cursor
 
--inc to stream
+- If showing form
 
--Steam to image
+- inc to stream
 
--Load record from file
+- Steam to image
 
--Save record to file
+- Load record from file
 
--Save record to file using stream
+- Save record to file
 
--Example DLL
+- Save record to file using stream
+
+- Example DLL
 
 -Mouse with graphics
