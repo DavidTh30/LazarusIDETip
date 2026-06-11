@@ -3,7 +3,7 @@ LazarusIDETip
 
 EasterEgg got from https://forum.lazarus.freepascal.org/index.php?topic=44067.0
 
-<img src="LoopRun01/SS01.png" width="400" height="400">
+<img src="LoopRun01/SS01.png" width="200" height="200">
 
 Keyword:
 
