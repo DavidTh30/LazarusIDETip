@@ -1,0 +1,28 @@
+object Form1: TForm1
+  Left = 505
+  Height = 465
+  Top = 117
+  Width = 704
+  Caption = 'Form1'
+  ClientHeight = 465
+  ClientWidth = 704
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object BGRASurface: TBGRAVirtualScreen
+    Left = 0
+    Height = 465
+    Top = 0
+    Width = 360
+    OnRedraw = BGRASurfaceRedraw
+    Align = alLeft
+    Alignment = taLeftJustify
+    Color = clGray
+    ParentColor = False
+    TabOrder = 0
+    OnMouseDown = SurfaceMouseDown
+    OnMouseEnter = BGRASurfaceMouseEnter
+    OnMouseMove = SurfaceMouseMove
+    OnMouseUp = SurfaceMouseUp
+  end
+end

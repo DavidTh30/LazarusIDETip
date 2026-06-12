@@ -1,0 +1,31 @@
+object Form1: TForm1
+  Left = 505
+  Height = 331
+  Top = 117
+  Width = 416
+  Caption = 'Form1'
+  ClientHeight = 331
+  ClientWidth = 416
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object BGRASurface: TBGRAVirtualScreen
+    Left = 0
+    Height = 331
+    Top = 0
+    Width = 360
+    OnRedraw = BGRASurfaceRedraw
+    Align = alLeft
+    Alignment = taLeftJustify
+    Color = clGray
+    ParentColor = False
+    TabOrder = 0
+  end
+  object Timer1: TTimer
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 370
+    Top = 32
+  end
+end
