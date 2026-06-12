@@ -1,0 +1,76 @@
+object Form1: TForm1
+  Left = 421
+  Height = 461
+  Top = 177
+  Width = 716
+  Caption = 'MPU 6050 attitude display'
+  ClientHeight = 461
+  ClientWidth = 716
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnClose = FormClose
+  OnShow = FormShow
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 20
+    Top = 441
+    Width = 716
+    Panels = <    
+      item
+        Text = 'Draw time, ms'
+        Width = 100
+      end    
+      item
+        Text = '0'
+        Width = 50
+      end    
+      item
+        Alignment = taRightJustify
+        Text = 'X'
+        Width = 50
+      end    
+      item
+        Text = '0'
+        Width = 50
+      end    
+      item
+        Alignment = taRightJustify
+        Text = 'Y'
+        Width = 50
+      end    
+      item
+        Text = '0'
+        Width = 50
+      end    
+      item
+        Alignment = taRightJustify
+        Text = 'Z'
+        Width = 50
+      end    
+      item
+        Text = '0'
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object BGLVirtualScreen1: TBGLVirtualScreen
+    Left = 0
+    Height = 441
+    Top = 0
+    Width = 716
+    OnRedraw = BGLVirtualScreen1Redraw
+    Align = alClient
+    BevelWidth = 0
+    Color = clBlack
+    ParentColor = False
+    TabOrder = 1
+    UseDockManager = False
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = Timer1Timer
+    Left = 147
+    Top = 70
+  end
+end
