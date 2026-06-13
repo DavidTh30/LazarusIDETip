@@ -1,5 +1,7 @@
 More example graphics:
 
+https://wiki.freepascal.org/Category:BGRABitmap
+
 https://github.com/bgrabitmap
 
 https://github.com/sechshelme
