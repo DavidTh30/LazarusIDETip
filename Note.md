@@ -21,3 +21,9 @@ https://github.com/neurolabusc/plyview
 https://github.com/neurolabusc/Metal-Demos/tree/master/mesh
 
 https://github.com/genericptr/Metal-Framework
+
+https://sourceforge.net/projects/javavcl/
+
+https://sourceforge.net/projects/ovoplayer/
+
+https://sourceforge.net/projects/lazview/
