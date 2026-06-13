@@ -25,6 +25,8 @@ Keyword:
 
 - Loop run OnIdle
 
+- Fix bug SIGSEGV error
+
 - GetTickCount 32bit / 64bit
 
 - Repaint, Clear before repaint buffer
