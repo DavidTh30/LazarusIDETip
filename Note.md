@@ -1,4 +1,4 @@
-More example graphics:
+More example code and graphics:
 
 https://wiki.freepascal.org/Category:BGRABitmap
 
@@ -27,3 +27,13 @@ https://sourceforge.net/projects/javavcl/
 https://sourceforge.net/projects/ovoplayer/
 
 https://sourceforge.net/projects/lazview/
+
+https://sourceforge.net/projects/ffmpeglazgui/
+
+https://sourceforge.net/projects/flyingsheep/files/
+
+https://sourceforge.net/projects/dmath/
+
+https://sourceforge.net/projects/lovefmvideoconv/
+
+https://sourceforge.net/projects/fundementals/
