@@ -12,3 +12,7 @@ https://github.com/Blueicaro/GLFW
 https://github.com/GuvaCode/LazGLFW
 
 GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan
+
+
+opengl using a freebasic screen (dll):
+https://forum.lazarus.freepascal.org/index.php/topic,51264.0.html
