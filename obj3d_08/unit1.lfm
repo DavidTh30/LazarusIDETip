@@ -1,0 +1,144 @@
+object Form1: TForm1
+  Left = 400
+  Height = 380
+  Top = 185
+  Width = 466
+  Caption = 'Form1'
+  ClientHeight = 380
+  ClientWidth = 466
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
+  object GLSceneViewer1: TGLSceneViewer
+    Left = 154
+    Height = 330
+    Top = 0
+    Width = 312
+    Camera = GLCamera1
+    Buffer.AmbientColor.Red = 0.200000002980232
+    Buffer.AmbientColor.Green = 0.200000002980232
+    Buffer.AmbientColor.Blue = 0.200000002980232
+    Buffer.AmbientColor.Alpha = 1
+    FieldOfView = 144.45735168457
+    Align = alClient
+    OnMouseWheel = GLSceneViewer1MouseWheel
+    TabOrder = 0
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 330
+    Width = 466
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 466
+    TabOrder = 1
+    object CheckBox1: TCheckBox
+      Left = 19
+      Height = 17
+      Top = 13
+      Width = 74
+      Caption = 'Orthogonal'
+      TabOrder = 0
+      OnChange = CheckBox1Change
+    end
+  end
+  object StringGrid1: TStringGrid
+    Left = 0
+    Height = 330
+    Top = 0
+    Width = 154
+    Align = alLeft
+    AutoFillColumns = True
+    ColCount = 3
+    Flat = True
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goSmoothScroll]
+    TabOrder = 2
+    OnSetEditText = StringGrid1SetEditText
+    ColWidths = (
+      48
+      53
+      52
+    )
+    Cells = (
+      6
+      0
+      1
+      'DOV'
+      0
+      2
+      'FocalL'
+      0
+      3
+      'SScale'
+      0
+      4
+      'Z'
+      1
+      0
+      'Ortho'
+      2
+      0
+      'Persp'
+    )
+  end
+  object GLScene1: TGLScene
+    Left = 51
+    Top = 35
+    object GLDummyCube1: TGLDummyCube
+      CubeSize = 1
+      EdgeColor.Red = 1
+      EdgeColor.Green = 1
+      EdgeColor.Blue = 1
+      EdgeColor.Alpha = 1
+      object GLCamera1: TGLCamera
+        DepthOfView = 100
+        FocalLength = 50
+        TargetObject = GLDummyCube1
+        Position.Coordinates = {
+          00000000000000000000A0400000803F
+        }
+        object GLLightSource1: TGLLightSource
+          Ambient.Alpha = 1
+          ConstAttenuation = 1
+          Diffuse.Red = 1
+          Diffuse.Green = 1
+          Diffuse.Blue = 1
+          Diffuse.Alpha = 1
+          Specular.Alpha = 1
+          SpotCutOff = 180
+        end
+      end
+    end
+    object GLDummyCube2: TGLDummyCube
+      CubeSize = 1
+      EdgeColor.Red = 1
+      EdgeColor.Green = 1
+      EdgeColor.Blue = 1
+      EdgeColor.Alpha = 1
+      VisibleAtRunTime = True
+      object GLTeapot1: TGLTeapot
+        Material.BackProperties.Ambient.Red = 0.200000002980232
+        Material.BackProperties.Ambient.Green = 0.200000002980232
+        Material.BackProperties.Ambient.Blue = 0.200000002980232
+        Material.BackProperties.Ambient.Alpha = 1
+        Material.BackProperties.Diffuse.Red = 0.800000011920929
+        Material.BackProperties.Diffuse.Green = 0.800000011920929
+        Material.BackProperties.Diffuse.Blue = 0.800000011920929
+        Material.BackProperties.Diffuse.Alpha = 1
+        Material.BackProperties.Emission.Alpha = 1
+        Material.BackProperties.Specular.Alpha = 1
+        Material.FrontProperties.Ambient.Red = 0.200000002980232
+        Material.FrontProperties.Ambient.Green = 0.200000002980232
+        Material.FrontProperties.Ambient.Blue = 0.200000002980232
+        Material.FrontProperties.Ambient.Alpha = 1
+        Material.FrontProperties.Diffuse.Red = 0.800000011920929
+        Material.FrontProperties.Diffuse.Green = 0.800000011920929
+        Material.FrontProperties.Diffuse.Blue = 0.800000011920929
+        Material.FrontProperties.Diffuse.Alpha = 1
+        Material.FrontProperties.Emission.Alpha = 1
+        Material.FrontProperties.Specular.Alpha = 1
+      end
+    end
+  end
+end
