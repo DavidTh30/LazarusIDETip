@@ -14,7 +14,7 @@ https://sourceforge.net/projects/new-zengl/
 
 https://sourceforge.net/projects/multi-briques/
 
-https://sourceforge.net/projects/glscene/files/
+https://sourceforge.net/projects/glscene/files/  ||  (https://sourceforge.net/p/glscene/discussion/)
 
 https://github.com/neurolabusc/plyview
 
