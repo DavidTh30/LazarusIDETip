@@ -1,0 +1,106 @@
+object OpenGlDemoForm: TOpenGlDemoForm
+  Left = 779
+  Height = 690
+  Top = 164
+  Width = 620
+  Caption = 'OpenGL Form'
+  ClientHeight = 690
+  ClientWidth = 620
+  Constraints.MaxHeight = 690
+  Constraints.MaxWidth = 620
+  Constraints.MinHeight = 690
+  Constraints.MinWidth = 620
+  Position = poWorkAreaCenter
+  LCLVersion = '4.6.0.0'
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnResize = FormResize
+  object Frame3D: TOpenGLControl
+    Left = 8
+    Height = 600
+    Top = 8
+    Width = 600
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoResizeViewport = True
+    OnPaint = Frame3DPaint
+  end
+  object BExit: TButton
+    Left = 539
+    Height = 25
+    Top = 655
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Exit'
+    TabOrder = 1
+    OnClick = BExitClick
+  end
+  object BLighting: TButton
+    Left = 8
+    Height = 25
+    Top = 659
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Lighting'
+    TabOrder = 2
+    OnClick = BLightingClick
+  end
+  object BBlend: TButton
+    Left = 104
+    Height = 25
+    Top = 659
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Blend'
+    TabOrder = 3
+    OnClick = BBlendClick
+  end
+  object BRotCube: TButton
+    Left = 200
+    Height = 25
+    Top = 659
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Rot. Cube'
+    TabOrder = 4
+    OnClick = BRotCubeClick
+  end
+  object BRotBack: TButton
+    Left = 296
+    Height = 25
+    Top = 659
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Rot. Back'
+    TabOrder = 5
+    OnClick = BRotBackClick
+  end
+  object BPartBlend: TButton
+    Left = 8
+    Height = 25
+    Top = 627
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Part. Blend'
+    TabOrder = 6
+    OnClick = BPartBlendClick
+  end
+  object BPartSpawn: TButton
+    Left = 104
+    Height = 25
+    Top = 627
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Part. Spawn'
+    TabOrder = 7
+    OnClick = BPartSpawnClick
+  end
+  object LDebug: TLabel
+    Left = 200
+    Height = 13
+    Top = 633
+    Width = 9
+    Anchors = [akLeft, akBottom]
+    Caption = '   '
+    ParentColor = False
+  end
+end
