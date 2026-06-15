@@ -15,12 +15,6 @@ Keyword:
       
    - PeekMessage
 
-   - Other SimpleIPC-lib (https://github.com/z505/SimpleIPC-lib)
-
-   - Communication Via MQTT protocol https://github.com/ZiCog/mqtt-free-pascal
-
-   - Pascal-Actor-Model https://github.com/lguzzon-PASCAL/pascal-actor-model (https://code.google.com/archive/p/pascal-actor-model)
-
 - Loop run OnIdle
 
 - Fix bug SIGSEGV error
