@@ -15,7 +15,7 @@ Keyword:
       
    - PeekMessage
 
-- Loop run OnIdle
+- Loop run using Application.OnIdle events
 
 - Fix bug SIGSEGV error
 
