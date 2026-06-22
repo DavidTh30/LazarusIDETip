@@ -47,5 +47,6 @@ Keyword:
 - Example DLL
 
 - Mouse with graphics
+- Internet Control Message Protocol (ICMP)
 
 EasterEgg got from https://forum.lazarus.freepascal.org/index.php?topic=44067.0
