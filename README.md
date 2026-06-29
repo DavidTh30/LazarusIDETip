@@ -8,13 +8,9 @@ LazarusIDETip
 Keyword:
 
 - SimpleIPC :
-
    - Communication between application
-     
    - Auto Message
-     
    - MessageQueued
-      
    - PeekMessage
 
 - Loop run using Application.OnIdle events
