@@ -12,17 +12,17 @@ Keyword:
    - Auto Message
    - MessageQueued
    - PeekMessage
-
+- HashSHA256
+- FileHash
+- HMACSHA1
+- FileCardinal
+- FileHexCRC32
+- Checksum CRC32
 - Loop run using Application.OnIdle events
-
 - Fix bug SIGSEGV error
-
 - GetTickCount 32bit / 64bit
-
 - Repaint, Clear before repaint buffer
-
 - No blinking cursor
-
 - Speed blinking cursor
 
 - Hide blinking cursor
