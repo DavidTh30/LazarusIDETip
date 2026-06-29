@@ -1,8 +1,8 @@
 # LazarusIDETip
 LazarusIDETip
 
-<img src="LoopRun01/SS01.png" width="300" height="300">
-<img src="Ping01/SS01.png" width="300" height="300">
+<img src="LoopRun01/SS01.png" width="300" height="300"> <img src="Ping01/SS01.png" width="300" height="300">
+<img src="Get-FileHash/SS01.png" width="300" height="300">
 
 Keyword:
 
