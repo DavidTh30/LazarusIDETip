@@ -17,14 +17,6 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, windows;
 
 type
-  //{$ScopedEnum On}
-  TChars = (
-    a, c, g, t
-  );
-
-  ch_array = array[TChars] of 1..4;
-
-type
 
   { TForm1 }
 
@@ -49,7 +41,6 @@ szName  = 'Global//MyFileMappingObject';
 
 var
   Form1: TForm1;
-  ca: ch_array;
   //Can't use Dynamic array of char
   //szName: array of TCHAR = ('G','l','o','b','a','l','\','\','M','Y');//TEXT("Global\\MyFileMappingObject");
   szMsg: array of TCHAR = ('M','e','s','s','a','g','e',' ','f','r'); //TEXT("Message from first process.");
@@ -63,23 +54,20 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   hMapFile: THandle;
   pBuf: PChar;
+  myString: String;
 begin
-  ca[TChars.a] := 3;
 
   // 1. Create a file mapping object backed by system paging file
-   hMapFile := CreateFileMapping(
-    INVALID_HANDLE_VALUE, // Use paging file instead of an actual file
-    nil,                  // Default security
-    PAGE_READWRITE,       // Read/write access
-    0,                    // Maximum object size (high-order DWORD)
-    MEMORY_SIZE,          // Maximum object size (low-order DWORD)
-    szName              // Name of mapping object
+   hMapFile := OpenFileMapping(
+    FILE_MAP_ALL_ACCESS,    // read/write access
+    FALSE,                 // do not inherit the name
+    szName               // name of mapping object
   );
 
   if hMapFile = 0 then
   begin
-    //Writeln('Could not create file mapping object. Error: ', GetLastError);
-    showmessage('Could not create file mapping object. Error:');
+    //Writeln('Could not open file mapping object Error: ', GetLastError);
+    showmessage('Could not open file mapping object Error:');
     Exit;
   end;
 
@@ -100,14 +88,16 @@ begin
     Exit;
   end;
 
-  // 3. Write data to the shared memory
-  StrCopy(pBuf, 'Hello from Pascal File Mapping!');
-
-  // 4. Clean up resources
-  UnmapViewOfFile(pBuf);
+  if pBuf <> nil then
+  begin
+    myString := String(pBuf);
+    //showmessage('Sender PID: '+ pBuf^.ProcessID);
+    //showmessage('Message: '+ pBuf^.Message);
+    showmessage('Message: '+myString);
+    UnmapViewOfFile(pBuf);
+  end;
   CloseHandle(hMapFile);
-  //Writeln('Execution completed successfully.');
-  showmessage('Execution completed successfully.');
+
 end;
 
 end.
