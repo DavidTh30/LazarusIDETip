@@ -63,6 +63,7 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   hMapFile: THandle;
   pBuf: PChar;
+  myString: String;
 begin
   ca[TChars.a] := 3;
 
@@ -102,6 +103,9 @@ begin
 
   // 3. Write data to the shared memory
   StrCopy(pBuf, 'Hello from Pascal File Mapping!');
+
+  myString := String(pBuf);
+  showmessage('Message: '+myString);
 
   // 4. Clean up resources
   UnmapViewOfFile(pBuf);
