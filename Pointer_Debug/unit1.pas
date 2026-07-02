@@ -208,6 +208,11 @@ begin
   Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
   MyBytePtr := @s;
   Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
+  s := '';
+  MyBytePtr := @s[1];
+  Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
+  MyBytePtr := @s;
+  Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
 end;
 
 end.
