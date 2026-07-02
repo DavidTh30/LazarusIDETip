@@ -1,0 +1,84 @@
+object Form1: TForm1
+  Left = 594
+  Height = 406
+  Top = 168
+  Width = 528
+  Caption = 'Form1'
+  ClientHeight = 406
+  ClientWidth = 528
+  LCLVersion = '3.4.0.0'
+  object Memo1: TMemo
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 232
+    Height = 406
+    Top = 0
+    Width = 296
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    WordWrap = False
+  end
+  object Button1: TButton
+    Left = 12
+    Height = 30
+    Top = 20
+    Width = 132
+    Caption = 'ComputerStatus'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 12
+    Height = 30
+    Top = 120
+    Width = 132
+    Caption = 'SendDebug'
+    TabOrder = 2
+    OnClick = Button2Click
+  end
+  object Label1: TLabel
+    Left = 12
+    Height = 45
+    Top = 72
+    Width = 141
+    Caption = 'To use SendDebug:'#13#10'  Please run DebugServer '#13#10'  or Debug message viewer'
+  end
+  object Button3: TButton
+    Left = 12
+    Height = 30
+    Top = 232
+    Width = 132
+    Caption = 'Default/New log file'
+    TabOrder = 3
+    OnClick = Button3Click
+  end
+  object Label2: TLabel
+    Left = 12
+    Height = 60
+    Top = 168
+    Width = 199
+    Caption = ' Main Menu > Run > Run Parameters '#13#10'               > Command line parameters'#13#10#13#10'project1 --debug-log=debug.log'
+  end
+  object Button4: TButton
+    Left = 12
+    Height = 30
+    Top = 264
+    Width = 132
+    Caption = 'LogGroup'
+    TabOrder = 4
+    OnClick = Button4Click
+  end
+  object Button5: TButton
+    Left = 12
+    Height = 30
+    Top = 312
+    Width = 132
+    Caption = 'AddressOf'
+    TabOrder = 5
+    OnClick = Button5Click
+  end
+end
