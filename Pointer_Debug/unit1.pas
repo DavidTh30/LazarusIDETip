@@ -117,6 +117,7 @@ var
   s: string;
 
   Arr : Array[1..5] Of Integer;
+  MyBytePtr: PByte;
 begin
   ProcPtr := @HelloWorld; // Assigns address of procedure
   ProcPtr();             // Calls the procedure via pointer
@@ -196,6 +197,17 @@ begin
   //After you are done with the pointer, you must deallocate the memory space
   Dispose(ptrToInt2);
   Memo1.Append('Address New(ptrToInt2): '+ HexStr(ptrToInt2));
+
+  Memo1.Append('---------------');
+  s := 'Hello';
+  MyBytePtr := PByte(@s[1]);
+  Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
+  MyBytePtr := PByte(@s);
+  Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
+  MyBytePtr := @s[1];
+  Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
+  MyBytePtr := @s;
+  Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
 end;
 
 end.
