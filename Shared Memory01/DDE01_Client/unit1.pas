@@ -527,11 +527,32 @@ begin
     begin
       i:={$I %LINENUM%};
       SendDebug(i.ToString+': XTYP_REGISTER');
-      //g_hService2 := hsz2;
-      //lSize := DdeQueryString(g_lInstID, hsz2, nil, 0, CP_WINANSI);
-      //sBuffer := Space(lSize);
-      //DdeQueryString(g_lInstID, hsz2, @sBuffer, lSize + 1, CP_WINANSI);
-      //sBuffer := UpperCase(sBuffer);
+      If (g_lInstID>0) Then
+      begin
+        SendDebug(i.ToString+' XTYP_REGISTER DdeQueryString');
+        lSize := DdeQueryString(g_lInstID, hsz2, nil, 0, CP_WINANSI);
+        SendDebug(i.ToString+' hsz2 lSize: '+lSize.ToString);
+
+        Buffer:=Space(SizeOf(sBuffer));
+        s := string(Buffer);
+        SendDebug(i.ToString+' Empty: '+s);
+
+        //sBuffer := Space(lSize);
+        //DdeQueryString(g_lInstID, hsz2, @sBuffer, lSize + 1, CP_WINANSI);
+        lSize := DdeQueryString(g_lInstID, hsz2, Buffer, lSize+1, CP_WINANSI);
+        //sBuffer := UpperCase(sBuffer);
+        s := string(Buffer);
+        SendDebug(i.ToString+' ResultString: '+s);
+
+        lSize := DdeQueryString(g_lInstID, hsz1, nil, 0, CP_WINANSI);
+        SendDebug(i.ToString+' hsz1 lSize: '+lSize.ToString);
+        Buffer:=Space(SizeOf(sBuffer));
+        s := string(Buffer);
+        SendDebug(i.ToString+' Empty: '+s);
+        lSize := DdeQueryString(g_lInstID, hsz2, Buffer, lSize+1, CP_WINANSI);
+        s := string(Buffer);
+        SendDebug(i.ToString+' ResultString: '+s);
+      end;
     end;
     if (uType = XTYP_REQUEST) then
     begin
