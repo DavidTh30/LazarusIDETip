@@ -13,7 +13,6 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
     Button10: TButton;
     Button11: TButton;
     Button2: TButton;
@@ -22,8 +21,9 @@ type
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
-    Button8: TButton;
     Button9: TButton;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
     cmdInitialize: TButton;
     cmdExecute: TButton;
     cmdUninitialize: TButton;
@@ -34,6 +34,8 @@ type
     cmdPoke: TButton;
     Label2: TLabel;
     Label3: TLabel;
+    Label4: TLabel;
+    Shape1: TShape;
     txtService1: TEdit;
     txtTopic1: TEdit;
     txtValue: TEdit;
@@ -45,14 +47,12 @@ type
     txtItem: TEdit;
     procedure Button10Click(Sender: TObject);
     procedure Button11Click(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
-    procedure Button8Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
     procedure cmdClearClick(Sender: TObject);
     procedure cmdExecuteClick(Sender: TObject);
@@ -274,7 +274,7 @@ begin
   // error.
   If (sTheItem <> '') Then
   begin
-    g_hItem := DdeCreateStringHandle(g_lInstID, PAnsiChar(form1.cboItem.Text), CP_WINANSI);
+    g_hItem := DdeCreateStringHandle(g_lInstID, PAnsiChar(sTheItem), CP_WINANSI);
   End;
 
 End;
@@ -283,27 +283,28 @@ Function DDE_Connect() : Long;
 var
   udtConvCont : CONVCONTEXT;
   hDDEConv : Long;
+  i:integer;
 begin
 
     // Set up the conversation context structure.
     udtConvCont.iCodePage := CP_WINANSI;
-    udtConvCont.cb := SizeOf(udtConvCont)+1;   //<=======================================Have to check    //Length
+    udtConvCont.cb := SizeOf(udtConvCont);  //Length(udtConvCont)
 
     hDDEConv := 0;
 
     // Open the connection to the service.
     hDDEConv := DdeConnect(g_lInstID, g_hService, g_hTopic, udtConvCont);
 
+    i:={$I %LINENUM%};
     // Do we have a connection?
     If (hDDEConv>0) Then
     begin
-        SendDebug('DDE Connection Success.');
+      SendDebug(i.ToString+' DDE Connection Success.');
     end
-
     Else
     begin
-        SendDebug('DDE Connection Failure.');
-        TranslateError();
+      SendDebug(i.ToString+' DDE Connection Failure.');
+      TranslateError();
 
     End;
 
@@ -424,35 +425,42 @@ var
   phszp : ^HSZPAIR;
   i:integer;
   lSize : Long;
-  sBuffer : String;
+  //sBuffer : String;
+  sBuffer : array of Byte;
   Ret : Long;
   ReceivedText: string;
+  s:string;
 begin
 
   Result := DDE_FNOTPROCESSED; //Result := 0;
 
   // Handle transactions here
-  i:={$I %LINENUM%};
-  SendDebug(i.ToString+': In client callback. uType');
+  if form1.CheckBox1.Checked then
+  begin
+    i:={$I %LINENUM%};
+    SendDebug(i.ToString+': In client callback. uFmt:'+ IntToHex(uFmt, 8) );
+    SendDebug(i.ToString+': In client callback. uType:'+ IntToHex(uType, 8));
+  end;
 
-  if uFmt = CF_TEXT then
+  if (uFmt = CF_TEXT) or (uFmt =0) then
   begin
     if (uType = XTYP_ADVDATA) then
     begin
       i:={$I %LINENUM%};
       SendDebug(i.ToString+': XTYP_ADVDATA');
       lSize := DdeGetData(hData, nil, 0, 0);
+      SendDebug(i.ToString+' lSize: '+lSize.ToString);
       If (lSize > 0) Then
       begin
         // Allocate a buffer for the return data.
-        sBuffer := StringOfChar(chr(0), lSize - MAGIC_NUMBER); // String$(lSize - MAGIC_NUMBER, 0);
-
+        //sBuffer := StringOfChar(chr(0), lSize - MAGIC_NUMBER); // String$(lSize - MAGIC_NUMBER, 0);
+        SetLength(sBuffer, lSize);
         // Grab the data.
-        lSize := DdeGetData(hData, @sBuffer, Length(sBuffer), 0);
-
-        // Print the contents of the buffer.
-        form1.txtValue.Text := sBuffer;
+        if lSize <= SizeOf(sBuffer) then lSize := DdeGetData(hData, @sBuffer[0], SizeOf(sBuffer), 0); //lSize := DdeGetData(hData, @sBuffer, Length(sBuffer), 0);
+        SetString(s, PAnsiChar(@sBuffer[0]), lSize);
+        form1.Label1.caption := 'DDE data: '+String(s); //form1.Label1.caption := 'DDE data: '+sBuffer;
       End;
+      Result := DDE_FACK;
     end;
     if (uType = XTYP_ADVSTART) then
     begin
@@ -495,6 +503,7 @@ begin
       i:={$I %LINENUM%};
       SendDebug(i.ToString+': XTYP_MASK');
     end;
+    if form1.CheckBox2.Checked then
     if (uType = XTYP_MONITOR) then
     begin
       i:={$I %LINENUM%};
@@ -506,7 +515,7 @@ begin
       SendDebug(i.ToString+': XTYP_POKE');
       // Data contains the text payload sent by the client
       ReceivedText := ExtractStringFromDde(hData);
-
+      SendDebug('ReceivedText: '+ReceivedText);
       // Hsz2 contains the Item name string handle
       // TODO: Process the payload text assigned to this specific item
 
@@ -568,68 +577,6 @@ begin
   bAdvise:=false;
 
 
-end;
-
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-  // Create string handles
-  g_hszAppName := DdeCreateStringHandle(InstId, PAnsiChar(txtService1.Text), CP_WINANSI);
-  g_hszTopicName := DdeCreateStringHandle(InstId, PAnsiChar(txtTopic1.Text), CP_WINANSI);
-  g_hszItemName := DdeCreateStringHandle(InstId, PAnsiChar(txtItem1.Text), CP_WINANSI);
-
-  hConv_ := DdeConnect(InstId, g_hszAppName, g_hszTopicName, nil);
-
-  if hConv_ = 0 then
-    ShowMessage('Connect bad')
-  else
-    begin
-
-      //Request or Send DataUse DdeClientTransaction
-      //to request data from the flow meters or send control commands.
-      //Reading Data: Use XTYP_REQUEST.
-      //Writing Data: Use XTYP_POKE.
-      //ShowMessage('Connect OK Handle: ' + IntToStr(hConv_));
-      ////hDataQUOTE := DdeClientTransaction(nil, 0, hConv_, g_hszItemName, CF_TEXT, XTYP_REQUEST, 50, nil);
-
-      // Send the request transaction
-      hDataQUOTE := DdeClientTransaction(
-      nil,               // No outbound data
-      0,                 // Data size is 0
-      hConv_,             // Active conversation handle
-      g_hszItemName,           // The item handle we want (e.g., 'R1C1' for Excel)
-      CF_TEXT,           // Request data as standard text
-      XTYP_REQUEST,      // Transaction type
-      5000,              // 5-second timeout
-      nil                // Ignore result flag
-      );
-
-      if hDataQUOTE <> 0 then
-      begin
-        DdeGetData(hDataQUOTE, @Buffer, SizeOf(Buffer), 0);
-        //ShowMessage('Data received: ' + String(Buffer));
-      end;
-
-      ////pData:=DdeAccessData(hDataQUOTE,@DataSize);
-      //pData:=DdeAccessData(hDataQUOTE,@pData);
-      //ShowMessage('pData: ' + PChar(pData));
-
-      ResultString:='5';
-      AppendTextToDDE(hDataQUOTE,ResultString);
-
-      DdeGetData(hDataQUOTE, @Buffer, SizeOf(Buffer), 0);
-      //ShowMessage('GetData second time : ' + String(Buffer));
-
-      Label1.Caption:=String(Buffer);
-
-      DdeUnaccessData(hDataQUOTE);
-      DdeDisconnect(hConv_);
-      DdeUninitialize(InstId);
-    end;
-  //DdeClientTransaction
-  //Free dde
-  DdeFreeStringHandle(InstId, g_hszAppName);
-  DdeFreeStringHandle(InstId, g_hszTopicName);
-  DdeFreeStringHandle(InstId, g_hszItemName);
 end;
 
 procedure TForm1.Button10Click(Sender: TObject);
@@ -1001,28 +948,6 @@ begin
   end;
 end;
 
-procedure TForm1.Button8Click(Sender: TObject);
-begin
-  ////pData:=DdeAccessData(hDataQUOTE,@DataSize);
-      //pData:=DdeAccessData(hDataQUOTE,@pData);
-      //ShowMessage('pData: ' + PChar(pData));
-
-      //Request or Send DataUse DdeClientTransaction
-      //to request data from the flow meters or send control commands.
-      //Reading Data: Use XTYP_REQUEST.
-      //Writing Data: Use XTYP_POKE.
-
-      ResultString:='5';
-      AppendTextToDDE(hDataQUOTE,ResultString);
-
-      DdeGetData(hDataQUOTE, @Buffer, SizeOf(Buffer), 0);
-      ShowMessage('GetData second time : ' + String(Buffer));
-
-      DdeUnaccessData(hDataQUOTE);
-      DdeDisconnect(hConv_);
-      DdeUninitialize(InstId);
-end;
-
 procedure TForm1.Button9Click(Sender: TObject);
 var
   i:integer;
@@ -1057,9 +982,12 @@ var
   sValue : String;
   txtService_ : string;
   txtTopic_ : string;
+  i:integer;
 begin
+  i:={$I %LINENUM%};
   If (CheckData('Execute')) Then
   begin
+    SendDebug(i.ToString+'Execute -------------------------');
     // Load the buffer.
     sValue := txtValue.Text;
 
@@ -1067,6 +995,31 @@ begin
     txtService_:= txtService.Text;
     txtTopic_ := txtTopic.Text;
     DDE_CreateStringHandles(txtService_, txtTopic_);
+
+    SendDebug(i.ToString+'Recheck string handles -------------------------');
+    Length_ := DdeQueryString(g_lInstID, g_hService, Buffer, SizeOf(Buffer), CP_WINANSI);
+    if Length_ > 0 then
+    begin
+      // ResultString now contains the string value
+      ResultString := string(Buffer);
+      SendDebug(i.ToString+' ResultString g_hszAppName: '+ResultString);
+    end;
+
+    Length_ := DdeQueryString(g_lInstID, g_hTopic, Buffer, SizeOf(Buffer), CP_WINANSI);
+    if Length_ > 0 then
+    begin
+      // ResultString now contains the string value
+      ResultString := string(Buffer);
+      SendDebug(i.ToString+' ResultString g_hszTopicName: '+ResultString);
+    end;
+
+    Length_ := DdeQueryString(g_lInstID, g_hItem, Buffer, SizeOf(Buffer), CP_WINANSI);
+    if Length_ > 0 then
+    begin
+      // ResultString now contains the string value
+      ResultString := string(Buffer);
+      SendDebug(i.ToString+' ResultString g_hszItemName: '+ResultString);
+    end;
 
     // Open the conversation.
     If (g_hDDEConv = 0) Then
@@ -1077,7 +1030,7 @@ begin
     If (g_hDDEConv>0) Then
     begin
       // Perform the transaction.
-      lRet := DdeClientTransaction(@sValue[1], Length(sValue), g_hDDEConv, 0, 0, XTYP_EXECUTE, 2000, nil);   //<=@sValue[1] -------------------------------------------------------
+      lRet := DdeClientTransaction(@sValue[1], Length(sValue)+1, g_hDDEConv, 0, 0, XTYP_EXECUTE, 2000, nil);
 
       If (lRet>0) Then
       begin
@@ -1141,17 +1094,24 @@ procedure TForm1.cmdPokeClick(Sender: TObject);
 var
   lRet : Long;
   sValue : String;
+  AnsiVal: AnsiString;
+  DataPtr: PByte;
+  DataLen: DWORD;
   txtService_:string;
   txtTopic_:string;
+  txtItem_:string;
+  i:integer;
 begin
   txtService_:=txtService.Text;
   txtTopic_:=txtTopic.Text;
+  txtItem_:= txtItem.Text;
   If (CheckData('Poke')) Then
   begin
         // Load the buffer.
-        sValue := txtValue.Text;
+        sValue := txtValue.Text;  //length(sValue)+1
+        sValue := txtValue.Text+ #0;  //length(sValue)
 
-        DDE_CreateStringHandles(txtService_, txtTopic_, txtItem.Text);
+        DDE_CreateStringHandles(txtService_, txtTopic_, txtItem_);
 
         // Open the conversation.
         If (g_hDDEConv = 0) Then
@@ -1161,8 +1121,15 @@ begin
 
         If (g_hDDEConv>0) Then
         begin
-            // Perform the transaction.
-            lRet := DdeClientTransaction(@sValue[1], length(sValue), g_hDDEConv, g_hItem, CF_TEXT, XTYP_POKE, 2000, nil); //<=@sValue[1] -------------------------------------------------------
+          // Perform the transaction.
+
+          AnsiVal := AnsiString(txtValue.Text) + #0;
+          DataPtr := PByte(PAnsiChar(AnsiVal));
+          DataLen := Length(AnsiVal);
+          i:= length(sValue);
+          SendDebug('length(sValue): '+i.ToString+'  DataLen: '+DataLen.ToString);
+          //lRet := DdeClientTransaction(DataPtr, DataLen, g_hDDEConv, g_hItem, CF_TEXT, XTYP_POKE, 2000, nil);
+          lRet := DdeClientTransaction(@sValue[1], length(sValue), g_hDDEConv, g_hItem, CF_TEXT, XTYP_POKE, 2000, nil);
 
             If (lRet>0) Then
             begin
@@ -1187,20 +1154,23 @@ procedure TForm1.cmdRequestClick(Sender: TObject);
 var
   lRet : Long;
   lSize : Long;
-  sBuffer : String;
-  sFinal : String;
+  //sBuffer : String;
+  sBuffer: array of Byte;
+  sFinal : AnsiString;
   txtService_:string;
   txtTopic_:string;
+  txtItem_:string;
   i:integer;
 begin
   txtService_:=txtService.Text;
   txtTopic_:=txtTopic.Text;
-   i:={$I %LINENUM%};
+  txtItem_:= txtItem.Text;
+  i:={$I %LINENUM%};
 
   If (CheckData('Request')) Then
   begin
 
-    DDE_CreateStringHandles(txtService_, txtTopic_, txtItem.Text);
+    DDE_CreateStringHandles(txtService_, txtTopic_, txtItem_);
 
     SendDebug(i.ToString+'Recheck string handles -------------------------');
     Length_ := DdeQueryString(g_lInstID, g_hService, Buffer, SizeOf(Buffer), CP_WINANSI);
@@ -1230,59 +1200,61 @@ begin
     // Open the conversation.
     If (g_hDDEConv = 0) Then
     begin
-          i:={$I %LINENUM%};
-          SendDebug(i.ToString+' g_lInstID: '+ g_lInstID.ToString);
-            g_hDDEConv := DDE_Connect();
-        End;
-
-        If (g_hDDEConv>0) Then
-        begin
-            // Perform the transaction.
-            lRet := DdeClientTransaction(nil, 0, g_hDDEConv, g_hItem, CF_TEXT, XTYP_REQUEST, 2000, nil);
-
-            If (lRet>0) Then
-            begin
-                SendDebug('DDE Request Success.');
-
-                // Grab the data from the DDE object create during the transaction. The DDE object
-                // is part of the DDE subsystem memory. Once we get what we want we need to free
-                // the object. Check the Microsoft Platform SDK for more information on freeing
-                // DDE global memory.
-
-                // The first call returns the size of the of the string. For some reason there's
-                // always an extra 3 bytes attached to the end of the string. That's why I have a magic
-                // number.
-                lSize := DdeGetData(lRet, nil, 0, 0);
-
-                // Allocate a buffer for the return data.
-                sBuffer := StringOfChar(chr(0), lSize); //sBuffer := String$(lSize, 0);
-
-                // Grab the data.
-                lSize := DdeGetData(lRet, @sBuffer, Length(sBuffer), 0);
-
-                // Print the contents of the buffer.
-                txtValue.Text := sBuffer;
-                SendDebug('sBuffer: '+sBuffer);
-
-                // Free the DDE subsystem resources.
-                DdeFreeDataHandle (lRet);
-            end
-
-            Else
-            begin
-                SendDebug('DDE Request Failed');
-                TranslateError();
-
-            End;
-
-        End;
-
-        DDE_FreeStringHandles();
-    end
-    Else
-    begin
-        showmessage('Please enter the required data for the transaction.');
+      i:={$I %LINENUM%};
+      SendDebug(i.ToString+' g_lInstID: '+ g_lInstID.ToString);
+      g_hDDEConv := DDE_Connect();
     End;
+
+    If (g_hDDEConv>0) Then
+    begin
+      // Perform the transaction request.
+      lRet := DdeClientTransaction(nil, 0, g_hDDEConv, g_hItem, CF_TEXT, XTYP_REQUEST, 2000, nil);
+
+      If (lRet>0) Then
+      begin
+        i:={$I %LINENUM%};
+        SendDebug(i.ToString+' (DdeClientTransaction) DDE Request Success.');
+
+        // Grab the data from the DDE object create during the transaction. The DDE object
+        // is part of the DDE subsystem memory. Once we get what we want we need to free
+        // the object. Check the Microsoft Platform SDK for more information on freeing
+        // DDE global memory.
+
+        // The first call returns the size of the of the string. For some reason there's
+        // always an extra 3 bytes attached to the end of the string. That's why I have a magic
+        // number.
+        lSize := DdeGetData(lRet, nil, 0, 0);
+        SendDebug(i.ToString+' lSize: ' + lSize.ToString);
+
+        // Allocate a buffer for the return data.
+        //sBuffer := StringOfChar(chr(0), lSize); //sBuffer := String$(lSize, 0);
+        SetLength(sBuffer, lSize);
+        SendDebug(i.ToString+' Length(sBuffer): ' + Length(sBuffer).ToString);
+
+        // Grab the data.
+        lSize := DdeGetData(lRet, @sBuffer[0], Length(sBuffer), 0);
+        SendDebug(i.ToString+' lSize: ' + lSize.ToString);
+
+        SetString(sFinal, PAnsiChar(@sBuffer[0]), Length(sBuffer));
+        Label1.caption := 'DDE data: '+string(sFinal);
+        SendDebug('sFinal: '+sFinal);
+
+        // Free the DDE subsystem resources.
+        DdeFreeDataHandle (lRet);
+      end
+      Else
+      begin
+        i:={$I %LINENUM%};
+        SendDebug(i.ToString+' (DdeClientTransaction) DDE Request Failed');
+        TranslateError();
+      End;
+    End;
+    DDE_FreeStringHandles();
+  end
+  Else
+  begin
+    showmessage('Please enter the required data for the transaction.');
+  End;
 end;
 
 procedure TForm1.cmdStartAdvClick(Sender: TObject);
@@ -1396,7 +1368,7 @@ begin
 
   // Disable the command buttons and the text boxes.
   cboItem.Enabled:=false;
-  txtValue.Enabled:=false;
+  //txtValue.Enabled:=false;
   cmdExecute.Enabled:=false;
   cmdStartAdv.Enabled:=false;
   cmdStopAdv.Enabled:=false;
