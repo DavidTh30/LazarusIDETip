@@ -213,6 +213,25 @@ begin
   Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
   MyBytePtr := @s;
   Memo1.Append('Address MyBytePtr: '+ HexStr(MyBytePtr));
+
+  Memo1.Append('---------------');
+  New(ptrToInt);
+  ptrToInt^ := 42;
+  Memo1.Append('Address ptrToInt: '+ HexStr(ptrToInt));
+  Memo1.Append(' ptrToInt: '+ ptrToInt^.ToString);
+  Dispose(ptrToInt);
+  Memo1.Append('Address ptrToInt: '+ HexStr(ptrToInt));
+  Memo1.Append(' ptrToInt: '+ ptrToInt^.ToString);
+
+  ptrToInt := GetMem(SizeOf(ptrToInt^));
+  Initialize(ptrToInt^);
+  ptrToInt^ := 53;
+  Memo1.Append('Address ptrToInt: '+ HexStr(ptrToInt));
+  Memo1.Append(' ptrToInt: '+ ptrToInt^.ToString);
+  Finalize(ptrToInt^);
+  FreeMem(ptrToInt);
+  Memo1.Append('Address ptrToInt: '+ HexStr(ptrToInt));
+  Memo1.Append(' ptrToInt: '+ ptrToInt^.ToString);
 end;
 
 end.
