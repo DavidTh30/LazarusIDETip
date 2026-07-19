@@ -18,7 +18,7 @@ Keyword:
 - FileCardinal
 - FileHexCRC32
 - Checksum CRC32
-- Loop run using Application.OnIdle events
+- Loop run using Application.OnIdle events (Done := False;)
 - Fix bug SIGSEGV error
 - GetTickCount 32bit / 64bit
 - Repaint, Clear before repaint buffer
