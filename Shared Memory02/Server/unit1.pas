@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  uPageFileStream;
+  uPageFileStream, Windows;
 
 type
   TData = record
@@ -19,14 +19,17 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
     Label1: TLabel;
     Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
 
   public
     function Receive(out Data: TData): Boolean;
-    procedure log(s:string);
     constructor Create(TheOwner: TComponent);  override;
     procedure OnIdle(Sender: TObject; var Done: boolean);
     procedure OnIdleEnd(Sender: TObject);
@@ -37,7 +40,6 @@ const
 
 var
   Form1: TForm1;
-  Memo_: TMemo;
   Stream: TPageFileStream;
   DataIn, DataOut: TData;
 
@@ -82,11 +84,6 @@ begin
   end;
 end;
 
-procedure TForm1.log(s:string);
-begin
-  Memo_.Append(s);
-end;
-
 constructor TForm1.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
@@ -97,7 +94,7 @@ begin
   DataIn.FUniqueID := 0;
   DataIn.FName := '';
 
-  log('TForm1.Create');
+  log({$I %LINE%}+' TForm1.Create');
 
 end;
 
@@ -107,14 +104,15 @@ begin
 
     if Stream<> nil then begin Stream.Free; Stream:=nil; end;
     // SizeOf(DataIn) + Length(DataIn.FName) is enough
-    Stream := TPageFileStream.Create(SizeOf(DataIn) + Length(DataIn.FName), CMapName);
+    if Stream = nil then Stream := TPageFileStream.Create(SizeOf(DataIn) + Length(DataIn.FName), CMapName);
+    //if Stream <> nil then Stream.DoMap(FILE_MAP_WRITE);
 
     Randomize;
     DataIn.FUniqueID := Random(1000);
     DataIn.FName := RandomString(10);
     Stream.WriteDWord(DataIn.FUniqueID);
     Stream.WriteAnsiString(DataIn.FName);
-    log('Cmd_Send: '+DataIn.FUniqueID.ToString);
+    log('Cmd_Send: DataIn.FUniqueID= '+DataIn.FUniqueID.ToString);
   finally
     if memo1.Lines.Count > 20 then memo1.Lines.Delete(0);
   end;
@@ -130,6 +128,19 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   if Stream<> nil then begin Stream.Free; Stream:=nil; end;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  boo:boolean;
+begin
+  Application.OnIdle := nil;
+  OnIdle(Sender,boo);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Application.OnIdle := @OnIdle;
 end;
 
 end.

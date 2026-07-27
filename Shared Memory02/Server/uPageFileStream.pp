@@ -8,7 +8,9 @@ unit uPageFileStream;
 interface
 
 uses
-  Classes;
+  Classes, StdCtrls, sysutils;
+
+procedure log(s:string);
 
 type
   { TPage FileStream does not throw an exception, but sets flags in the state
@@ -41,10 +43,12 @@ type
 
   TPageFileStream = class(TCustomMemoryStream)
   strict private
-    FMapHandle: THandle;
+
     FStates: TPageFileStreamStates;
-    procedure DoMap(DesiredAccess: DWORD);
+
   public
+    FMapHandle: THandle;
+    procedure DoMap(DesiredAccess: DWORD);
     constructor Create(MapSize: SizeUInt; const MapName: UnicodeString = '');
     constructor CreateForRead(const MapName: UnicodeString);
     destructor Destroy; override;
@@ -52,21 +56,40 @@ type
     property States: TPageFileStreamStates read FStates;
   end;
 
+var
+  Memo_: TMemo;
+
 implementation
 
 uses Windows;
 
+procedure log(s:string);
+begin
+  Memo_.Append(s);
+end;
+
 constructor TPageFileStream.Create(MapSize: SizeUInt; const MapName: UnicodeString);
 begin
   inherited Create;
+  SetLastError(0);
   // ! Not PWideChar(MapName), because PWideChar('') <> nil
   FMapHandle := CreateFileMappingW(INVALID_HANDLE_VALUE, nil, PAGE_READWRITE,
     Hi(MapSize), Lo(MapSize), Pointer(MapName));
   if FMapHandle <> 0 then
   begin
     if GetLastError = ERROR_ALREADY_EXISTS then
+    begin
       Include(FStates, pfsOpenExisting);
+      log({$I %LINE%}+' GetLastError= '+SysErrorMessage(GetLastError));
+      //exit;
+    end;
     DoMap(FILE_MAP_WRITE);
+    log({$I %LINE%}+' FMapHandle:='+IntToStr(FMapHandle));
+  end
+  else
+  begin
+    log({$I %LINE%}+' GetLastError= '+SysErrorMessage(GetLastError));
+    log({$I %LINE%}+' FMapHandle:='+IntToStr(FMapHandle));
   end;
 end;
 
@@ -101,11 +124,15 @@ var
   P: Pointer;
   Info: TMemoryBasicInformation;
 begin
+  SetLastError(0);
   P := MapViewOfFile(FMapHandle, DesiredAccess, 0, 0, 0);
   if Assigned(P) then
   begin
+    log({$I %LINE%}+' Assigned(P)');
+    log({$I %LINE%}+' GetLastError= '+SysErrorMessage(GetLastError));
     if VirtualQuery(P, @Info, SizeOf(Info)) <> 0 then
     begin
+      log({$I %LINE%}+' VirtualQuery <> 0');
       SetPointer(P, Info.RegionSize);
       Include(FStates, pfsValid);
     end;
