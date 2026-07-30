@@ -1,0 +1,48 @@
+object Form1: TForm1
+  Left = 455
+  Height = 136
+  Top = 207
+  Width = 295
+  HorzScrollBar.Page = 294
+  VertScrollBar.Page = 135
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Test UniqueInstanceRaw'
+  ClientHeight = 136
+  ClientWidth = 295
+  OnCreate = FormCreate
+  Position = poWorkAreaCenter
+  LCLVersion = '3.4.0.0'
+  object ButCrashApp: TButton
+    Left = 64
+    Height = 32
+    Top = 48
+    Width = 158
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Crash Application'
+    TabOrder = 0
+    OnClick = ButCrashAppClick
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 0
+    Width = 60
+    Caption = 'Last Active:'
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 24
+    Width = 179
+    Caption = '**node: check code at project1.lpr'
+  end
+  object UniqueInstance1: TUniqueInstance
+    Enabled = True
+    Identifier = 'test0.1'
+    UpdateInterval = 500
+    OnOtherInstance = UniqueInstance1OtherInstance
+    Left = 107
+    Top = 10
+  end
+end
