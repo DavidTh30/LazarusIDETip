@@ -1,0 +1,38 @@
+object Form1: TForm1
+  Left = 397
+  Height = 566
+  Top = 118
+  Width = 872
+  Caption = 'Form1'
+  ClientHeight = 566
+  ClientWidth = 872
+  LCLVersion = '4.8.0.0'
+  OnCreate = FormCreate
+  object XelLineChart1: TXelLineChart
+    Left = 8
+    Height = 260
+    Top = 16
+    Width = 420
+    Series = <>
+    AxisX.Max = 100
+    AxisX.AutoZero = False
+    AxisX.LabelFormat = '%g'
+    AxisY.Max = 100
+    AxisY.LabelFormat = '%g'
+    Legend.Visible = False
+  end
+  object XelSparkline1: TXelSparkline
+    Left = 440
+    Height = 256
+    Top = 288
+    Width = 420
+    Max = 100
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = Timer1Timer
+    Left = 570
+    Top = 55
+  end
+end
