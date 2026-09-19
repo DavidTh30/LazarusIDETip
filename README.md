@@ -1,6 +1,8 @@
 # LazarusIDETip
 LazarusIDETip
 
+<img src="ChartLabelSize/SS01.png" width="300" height="300"> <img src="Ping01/SS01.png" width="300" height="300">
+
 <img src="LoopRun01/SS01.png" width="300" height="300"> <img src="Ping01/SS01.png" width="300" height="300">
 
 <img src="Get-FileHash/SS01.png" width="300" height="300"> <img src="SynEdit/SS01.png" width="300" height="300">
